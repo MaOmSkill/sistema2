@@ -1,0 +1,42 @@
+<h1>Vista Principal de los Articulos</h1>
+
+{% for articulos in  articulos %}
+<a href="{% url 'crear_articulo' articulos.id %}">Crear Nuevo Articulo</a>
+ {% endfor %}
+<div class="table-responsive-xxl">
+  <table class="table table-warning">
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Codigo</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Serial</th>
+         <th scope="col">Cantidad</th>
+        <th scope="col">Fecha de Entrada</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for articulos in  articulos %}
+      <tr>
+        <td>{{articulos.id}}</td>
+        <td>{{articulos.code}}</td>
+        <td>{{articulos.descripcionGeneral}}</td>
+        <td>{{articulos.marca}}</td>
+        <td>{{articulos.modelo}}</td>
+        <td>{{articulos.serial}}</td>
+         <td>{{articulos.cantidad}}</td>
+        <td>{{articulos.fechaIngreso}}</td>
+        <td>
+        <a href="#">editar</a>
+        <a href="#">eliminar</a>
+        </td>
+      </tr>
+    {% endfor %}
+    
+    </tbody>
+  </table>
+</div>

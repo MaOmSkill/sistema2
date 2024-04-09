@@ -1,0 +1,47 @@
+<form action="" method="post">
+{% csrf_token %}
+
+
+<div class="form-group">
+<label for="nombreUnidad">Nombre de la Unidad:</label>
+<input type="text" class="form-control" name="nombreUnidad" id="nombreUnidad" placeholder="Nombre de la Unidad">
+</div>
+
+<div class="form-group">
+<label for="comandante">Comandante:</label>
+<input type="text" class="form-control" name="comandante" id="comandante" placeholder="Comandante">
+</div>
+
+<div class="form-group">
+<label for="tipo">Tipo:</label>
+<select name="tipo" id="tipo">
+<option value="uuss">uuss</option>
+<option value="ut">ut</option>
+</select>
+</div>
+
+
+<div class="form-group">
+<label for="descripcion">Descripcion:</label>
+<textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
+</div>
+
+<div class="form-group">
+<label for="ubicacion">Ubicación:</label>
+<textarea name="ubicacion" id="ubicacion" cols="30" rows="10"></textarea>
+</div>
+
+
+<div class="form-group">
+<label for="correo">Correo Electronico:</label>
+<input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico">
+</div>
+
+
+<div class="form-group">
+<label for="telefono">Telefono:</label>
+<input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
+</div>
+
+<button type="submit">guardar</button>
+</form>

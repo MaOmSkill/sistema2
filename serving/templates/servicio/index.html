@@ -1,0 +1,39 @@
+<a href="{% url 'crear' %}">Crear</a>
+
+
+<div class="table-responsive-xxl">
+  <table class="table table-info">
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Unidad</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Ubicación</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Comandante</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for servicio in servicio %}
+      <tr class="">
+        <td scope="row">{{servicio.id}}</td>
+        <td>{{servicio.nombreUnidad}}</td>
+        <td>{{servicio.tipo}}</td>
+        <td>{{servicio.descripcion}}</td>
+        <td>{{servicio.ubicacion}}</td>
+        <td>{{servicio.correo}}</td>
+        <td>{{servicio.comandante}}</td>
+
+        <td>
+        <a href="{% url 'articulo' servicio.id %}">ver</a>
+        <a href="{% url 'editar' servicio.id %}">editar</a>
+         <a href="{% url 'eliminar' servicio.id %}">eliminar</a>
+        </td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
