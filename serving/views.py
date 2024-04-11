@@ -2,75 +2,71 @@ from django.shortcuts import render, redirect , get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import UnidadModel, ArticuloModel
+from .models import Unidad, Articulo
 from .forms import FormUnidad , FormArticulo
 
 
-class VistaPrincipal(View):
-  def get(self, request):
-    servicio = UnidadModel.objects.all()
-    context = {'servicio':servicio}
-    return render(request,'servicio/index.html',context)
-  
-class VistaCrear(CreateView):
-  form_class = FormUnidad
-  initial = {"key": "value"}
-  template_name="servicio/crear.html"
+class VistaInventario(View):
   
   def get(self, request, *args, **kwargs):
-    form = self.form_class(initial=self.initial)
-    return render(request, self.template_name, {'form': form})
+    articulo = Articulo.objects.all()
+    unidades = Unidad.objects.all().count()
+    context = {'articulo':articulo, 'unidades':unidades}
+    return render(request, 'articulos/index.html', context)
   
-  
-  def post(self, request, *args, **kwargs):
-    form = self.form_class(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('servicio')
-    return render(request, self.template_name, {'form': form})
-  
-class Actualizar(UpdateView):
-    model = UnidadModel
-    template_name = "servicio/editar.html" 
-    fields=['nombreUnidad', 'tipo', 'telefono', 'ubicacion', 'descripcion', 'correo', 'comandante']
-    
-class Eliminar(DeleteView):
-    model = UnidadModel
-    success_url = reverse_lazy('servicio')
-    template_name = "servicio/unidadmodel_confirm_delete.html"
-    success_message = 'Identificador %(nombreUnidad)s Eliminado'
-    
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, self.success_message % self.get_object())
-        return super().delete(request, *args, **kwargs)
-      
-      
-# Vistas de los Artículos
-class VistaArticulo(View):
-    def get(self, request, id):
-        articulos = UnidadModel.objects.get(pk=id)
-        objetos = ArticuloModel.objects.filter(unidad = articulos)
-        return render(request, 'articulos/articulo_info.html', {'objetos':objetos , 'articulos':articulos })
 
 class CrearArticulo(CreateView):
-    form_class = FormArticulo
-    initial = {"key": "value"}
-    template_name = "articulos/crear_articulo.html"
+  form_class = FormArticulo
+  initial = {"key": "value"}
+  template_name = "articulos/crear.html"
+  def get(self, request, *args, **kwargs):
+    formulario_articulo = self.form_class(initial=self.initial)
+    context = {'formulario_articulo':formulario_articulo}
+    return render(request, self.template_name, context)
+  
+  def post(self, request, *args, **kwargs):
+    formulario_articulo =self.form_class(request.POST)
+    if formulario_articulo.is_valid():
+      formulario_articulo.save()
+      return redirect('articulos')
+    return render(request, self.template_name, {'formulario_articulo':formulario_articulo})
+  
+    
+class VistaEnvio(View):
+  def get(self, request, *args, **kwargs):
+    articulo = Articulo.objects.all()
+    unidad = Unidad.objects.all()
+    context = {'articulo':articulo, 'unidad':unidad}
+    return render(request, 'envios/envio_articulo.html', context)
 
-    def get(self, request, id):
-        unidad = UnidadModel.objects.filter(pk=id)
-        form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form, 'unidad': unidad})
+class VistaUnidad(View):
+  
+  def get(self, request, *args, **kwargs):
+    unidad = Unidad.objects.all()
+    context = {'unidad':unidad}
+    return render(request, 'unidad/unidad_index.html',context)
 
-    def post(self, request, id):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-          nuevo =form.save()
-          id = nuevo.unidad.id
-          return redirect('articulo', id=id)
-        return render(request, self.template_name, {'form': form})
+class CrearUnidad(CreateView):
+  form_class = FormUnidad
+  initial = {"key": "value"}
+  template_name = "unidad/crear_unidad.html"
+  def get(self, request, *args, **kwargs):
+    formulario_unidad = self.form_class(initial=self.initial)
+    context = {'formulario_unidad':formulario_unidad}
+    return render(request, self.template_name, context)
+  
+  def post(self, request, *args, **kwargs):
+    formulario_unidad = self.form_class(request.POST)
+    if formulario_unidad.is_valid():
+      formulario_unidad.save()
+      return redirect('unidad')
+    return render(request, self.template_name, {'formulario_unidad':formulario_unidad})
 
 
+class UnidadArticulo(View):
+  
+  def get(self, request, id):
+    return render(request, 'subunidad/unidad_articulo.html')

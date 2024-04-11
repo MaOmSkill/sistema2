@@ -1,0 +1,49 @@
+<form action="" method="post">
+{% csrf_token %}
+
+<div class="form-group">  
+<label for="articulo">Articulo</label>
+<textarea  class="form-control" name="articulo" id="articulo" rows="3" placeholder="Articulo"></textarea>
+</div>
+
+<div class="form-group">  
+<label for="serial">Serial</label>
+<input type="text" class="form-control" name="serial" id="serial" placeholder="Serial del Articulo">
+</div>
+
+<div class="form-group">  
+<label for="unidad_medida">Unidad de Medida</label>
+<input type="text" class="form-control" name="unidad_medida" id="unidad_medida" placeholder="Unidad de Medida">
+</div>
+
+
+<div class="form-group">
+<label for="grupo">Grupo</label>
+<input type="number" class="form-control" name="grupo" id="grupo" placeholder="Grupo">
+</div>
+
+<div class="form-group">
+<label for="subgrupo">SubGrupo</label>
+<input type="number" class="form-control" name="subgrupo" id="subgrupo" placeholder="SubGrupo">
+</div>
+
+<div class="form-group">
+<label for="seccion">Seccion</label>
+<input type="number" class="form-control" name="seccion" id="seccion" placeholder="Seccion">
+</div>
+
+<div class="form-group">
+<label for="cantidad">Cantidad</label>
+<input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad">
+</div>
+
+<div class="form-group">
+<label for="precio">Precio</label>
+<input type="number" class="form-control" name="precio" id="precio" placeholder="Precio">
+</div>
+
+
+<div class="d-flex justify-content-end card-outline mt-4"> 
+  <button type="submit" class="btn btn-dark">Guardar</button>
+</div>
+</form>

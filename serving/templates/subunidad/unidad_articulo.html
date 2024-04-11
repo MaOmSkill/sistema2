@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+
+
+{% block titulo %}Articulo Recibidos{% endblock  %}
+  
+
+{% block seccion %} 
+
+{% block titulodeseccion %} Historial de Articulos Recibidos {% endblock%} 
+{% block etiqueta1 %}Inicio{% endblock %}
+{% block etiqueta2 %} Información{% endblock %} 
+
+{% endblock %} 
+
+
+{% block contenido %}
+  <div class="row">
+  <div class="col-lg-12">
+    <div class="card card-dark card-outline">
+      <div class="card-header">
+        <div class="d-flex justify-content-between">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="example1" class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Articulo</th>
+                <th scope="col">Serial</th>
+                <th scope="col">Grupos</th>
+                <th scope="col">SubGrupos</th>
+                <th scope="col">Seccion</th>
+                <th scope="col">Fecha Entrada</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for articulo in articulo %}
+              <tr class="">
+                <td>{{forloop.counter}}</td>
+                <td>{{articulo.articulo}}</td>
+                <td>{{articulo.serial}}</td>
+                <td>{{articulo.grupo}}</td>
+                <td>{{articulo.subgrupo}}</td>
+                <td>{{articulo.seccion}}</td>
+                <td>{{articulo.fecha|date:"d-m-y"}}</td>
+                <td>{{articulo.cantidad}}</td>
+                <td>{{articulo.precio}}</td>
+                <td>{{articulo.total}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+  

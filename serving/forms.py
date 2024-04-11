@@ -1,13 +1,13 @@
 from django import forms
-from .models import UnidadModel, ArticuloModel
+from .models import Unidad, Articulo
 
 
 class  FormUnidad(forms.ModelForm):
   class Meta:
-    model = UnidadModel
-    fields=['nombreUnidad', 'tipo', 'telefono', 'ubicacion', 'descripcion', 'correo', 'comandante']
+    model = Unidad
+    fields=['nombreUnidad', 'telefono', 'ubicacion', 'comandante']
     
 class  FormArticulo(forms.ModelForm):
   class Meta:
-    model = ArticuloModel
-    fields=['descripcionGeneral', 'marca', 'modelo', 'serial', 'unidad' , 'cantidad', 'categoria' , 'precio']
+    model = Articulo
+    fields=['articulo', 'cantidad', 'precio' ,'grupo' ,'subgrupo' ,'seccion' ,'unidad_medida', 'serial']

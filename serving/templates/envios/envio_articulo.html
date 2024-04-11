@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% block seccion %} 
+
+{% block titulodeseccion %} Formulario de Envio de Articulos {% endblock%} 
+{% block etiqueta1 %}Inicio{% endblock %}
+{% block etiqueta2 %} Formulario{% endblock %} 
+
+{% endblock %} 
+
+{% block contenido %}
+<div class="row justify-content-center">
+  <div class="col-lg-4">
+    <div class="card card-dark card-outline">
+      <div class="card-header">
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title m-0">Envio de Articulos</h3>
+        </div>
+      </div>
+      <div class="card-body">
+       {% include 'envios/formulario.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

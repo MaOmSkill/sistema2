@@ -1,0 +1,30 @@
+<form action="" method="post">
+{% csrf_token %}
+
+
+
+<div class="form-group">  
+<label for="nombreUnidad">Identificación de la Unidad</label>
+<input type="text" class="form-control" name="nombreUnidad" id="nombreUnidad" placeholder="Nombre de la Unidad">
+</div>
+
+<div class="form-group">  
+<label for="comandante">Comandante</label>
+<input type="text" class="form-control" name="comandante" id="comandante" placeholder="Nombre del Comandante">
+</div>
+
+<div class="form-group">  
+<label for="telefono">Telefono</label>
+<input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
+</div>
+
+
+<div class="form-group">  
+<label for="ubicacion">Ubicacion</label>
+<textarea class="form-control" name="ubicacion" id="ubicacion"  rows="3" placeholder="Ubicacion..."></textarea>
+</div>
+
+<div class="d-flex justify-content-end card-outline mt-4"> 
+  <button type="submit" class="btn btn-dark">Guardar</button>
+</div>
+</form>
