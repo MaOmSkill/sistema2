@@ -40,9 +40,10 @@ class ArticuloModel(models.Model):
   marca = models.CharField(max_length=200)
   modelo = models.CharField(max_length=200)
   serial = models.CharField(max_length=200)
+  categoria = models.CharField(max_length=200, verbose_name='categoria')
   fechaIngreso = models.DateField(auto_now_add=True)
   cantidad = models.IntegerField(default=0)
-
+  precio = models.DecimalField(max_digits=6, decimal_places=2)
   unidad = models.ForeignKey(UnidadModel, on_delete=models.CASCADE)
   
   def save(self, *args, **kwargs):
@@ -60,7 +61,10 @@ class ArticuloModel(models.Model):
               return code
   
   def  __str__(self):
-    return f'{self.descripcionGeneral} - {self.marca} - {self.modelo}- {self.serial}'
+    return f'{self.descripcionGeneral} - {self.marca} - {self.modelo}- {self.serial} - {self.categoria}'
+  
+  def total(self):
+        return self.cantidad * self.precio
   
 
   

@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <a href="{% url 'crear' %}">Crear</a>
 
 
@@ -6,6 +7,7 @@
     <thead>
       <tr>
         <th scope="col">N°</th>
+        <th scope="col">Codigo</th>
         <th scope="col">Unidad</th>
         <th scope="col">Tipo</th>
         <th scope="col">Descripción</th>
@@ -19,7 +21,8 @@
 
     {% for servicio in servicio %}
       <tr class="">
-        <td scope="row">{{servicio.id}}</td>
+        <td>{{servicio.id}}</td>
+        <td>{{servicio.code}}</td>
         <td>{{servicio.nombreUnidad}}</td>
         <td>{{servicio.tipo}}</td>
         <td>{{servicio.descripcion}}</td>

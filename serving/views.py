@@ -51,8 +51,9 @@ class Eliminar(DeleteView):
 # Vistas de los Artículos
 class VistaArticulo(View):
     def get(self, request, id):
-        articulos = ArticuloModel.objects.filter(pk=id)
-        return render(request, 'articulos/articulo_info.html', {'articulos':articulos})
+        articulos = UnidadModel.objects.get(pk=id)
+        objetos = ArticuloModel.objects.filter(unidad = articulos)
+        return render(request, 'articulos/articulo_info.html', {'objetos':objetos , 'articulos':articulos })
 
 class CrearArticulo(CreateView):
     form_class = FormArticulo

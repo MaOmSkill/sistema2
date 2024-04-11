@@ -10,4 +10,4 @@ class  FormUnidad(forms.ModelForm):
 class  FormArticulo(forms.ModelForm):
   class Meta:
     model = ArticuloModel
-    fields=['descripcionGeneral', 'marca', 'modelo', 'serial', 'unidad' , 'cantidad']
+    fields=['descripcionGeneral', 'marca', 'modelo', 'serial', 'unidad' , 'cantidad', 'categoria' , 'precio']
