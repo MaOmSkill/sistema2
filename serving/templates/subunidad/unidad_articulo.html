@@ -29,9 +29,7 @@
                 <th scope="col">N°</th>
                 <th scope="col">Articulo</th>
                 <th scope="col">Serial</th>
-                <th scope="col">Grupos</th>
-                <th scope="col">SubGrupos</th>
-                <th scope="col">Seccion</th>
+                <th scope="col">Movimiento</th>
                 <th scope="col">Fecha Entrada</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
@@ -39,18 +37,16 @@
               </tr>
             </thead>
             <tbody>
-              {% for articulo in articulo %}
+              {% for objetos in articulo %}
               <tr class="">
                 <td>{{forloop.counter}}</td>
-                <td>{{articulo.articulo}}</td>
-                <td>{{articulo.serial}}</td>
-                <td>{{articulo.grupo}}</td>
-                <td>{{articulo.subgrupo}}</td>
-                <td>{{articulo.seccion}}</td>
-                <td>{{articulo.fecha|date:"d-m-y"}}</td>
-                <td>{{articulo.cantidad}}</td>
-                <td>{{articulo.precio}}</td>
-                <td>{{articulo.total}}</td>
+                <td>{{objetos.articulo}}</td>
+                <td>{{objetos.serial}}</td>
+                <td>{{objetos.movimiento}}</td>
+                <td>{{objetos.fecha_salida|date:"d-m-y"}}</td>
+                <td>{{objetos.cantidad}}</td>
+                <td>{{objetos.precio}}</td>
+                <td>{{objetos.total}}</td>
               </tr>
               {% endfor %}
             </tbody>

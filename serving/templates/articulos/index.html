@@ -36,7 +36,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'unidad' %}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-4 col-6">
@@ -70,25 +70,31 @@
           <table id="example1" class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">N°</th>
-                <th scope="col">Serial</th>
-                <th scope="col">Fecha Entrada</th>
-                <th scope="col">Articulo</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Total</th>
+                <th scope="col" class="text-center">N°</th>
+                <th scope="col" class="text-center">Serial</th>
+                <th scope="col" class="text-center">Fecha Entrada</th>
+                <th scope="col" class="text-center">Articulo</th>
+                <th scope="col" class="text-center">Cantidad</th>
+                <th scope="col" class="text-center">Precio</th>
+                <th scope="col" class="text-center">Total</th>
+                <th scope="col" class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {% for articulo in articulo %}
               <tr class="">
-                <td>{{forloop.counter}}</td>
-                <td>{{articulo.serial}}</td>
-                <td>{{articulo.fecha|date:"d-m-y"}}</td>
-                <td>{{articulo.articulo}}</td>
-                <td>{{articulo.cantidad}}</td>
-                <td>{{articulo.precio}}</td>
-                <td>{{articulo.total}}</td>
+                <td class="text-center">{{forloop.counter}}</td>
+                <td class="text-center">{{articulo.serial}}</td>
+                <td class="text-center">{{articulo.fecha|date:"d-m-y"}}</td>
+                <td class="text-center">{{articulo.articulo}}</td>
+                <td class="text-center">{{articulo.cantidad}}</td>
+                <td class="text-center">{{articulo.precio}}</td>
+                <td class="text-center">{{articulo.total}}</td>
+                <td class="text-center">
+                <a href="#" class="btn btn-dark"><i class="fas fa-solid fa-file-pdf"></i></a> |
+                <a href="{% url 'editar' articulo.id %}" class="btn btn-info"><i class="fas fa-solid fa-pen"></i></a> |
+                <a href="{% url 'eliminar' articulo.id %}" class="btn btn-danger"><i class="fas fa-solid fa-trash"></i></a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

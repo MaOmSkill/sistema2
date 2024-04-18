@@ -1,5 +1,11 @@
 {% extends 'base.html' %} 
 
+
+{% block titulo %}
+  Unidad
+{% endblock  %}
+  
+
 {% block seccion %} 
 
 {% block titulodeseccion %} Unidad {% endblock%} 
@@ -42,7 +48,11 @@
                 <td>{{unidad.comandante}}</td>
                 <td>{{unidad.telefono}}</td>
                 <td>{{unidad.ubicacion}}</td>
-                <td> <a href="{% url 'unidad_articulo' unidad.id %}">ver</a></td>
+                <td> 
+                <a href="{% url 'unidad_articulo' unidad.id %}" class="btn btn-dark"><i class="fas fa-solid fa-eye"></i></a> |
+                <a href="{% url 'editar_unidad' unidad.id %}" class="btn btn-info"><i class="fas fa-solid fa-pen"></i></a> |
+                <a href="{% url 'eliminar_unidad' unidad.id %}" class="btn btn-danger"><i class="fas fa-solid fa-trash"></i></a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

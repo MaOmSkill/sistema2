@@ -1,13 +1,11 @@
-from django.shortcuts import render, redirect , get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.contrib import messages
-from django.urls import reverse
-from django.http import HttpRequest, HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Unidad, Articulo
-from .forms import FormUnidad , FormArticulo
+from .models import Unidad, Articulo, ArticuloUnidad
+from .forms import FormUnidad , FormArticulo, FormEnvio
 
+# vista de inventario
 
 class VistaInventario(View):
   
@@ -33,14 +31,75 @@ class CrearArticulo(CreateView):
       formulario_articulo.save()
       return redirect('articulos')
     return render(request, self.template_name, {'formulario_articulo':formulario_articulo})
-  
+ 
+
+class EditarVista(UpdateView):
+    model = Articulo
+    form_class = FormArticulo
+    template_name = "articulos/editar.html"
     
-class VistaEnvio(View):
-  def get(self, request, *args, **kwargs):
-    articulo = Articulo.objects.all()
-    unidad = Unidad.objects.all()
-    context = {'articulo':articulo, 'unidad':unidad}
-    return render(request, 'envios/envio_articulo.html', context)
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+        return super().get(request, self.template_name, *args, **kwargs)
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        #initial['serial'] = self.object.serial
+        return initial
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect('articulos')
+      
+  
+class EliminarVista(DeleteView):
+  model = Articulo
+  template_name = "articulos/eliminar.html"
+  success_url = reverse_lazy('articulos')
+  
+  # ---------- fin de la vista inventario
+  
+  
+  
+  # inicio de la vista de envio de articulos
+
+class VistaEnvio(CreateView):
+    form_class = FormEnvio
+    initial = {"key": "value"}
+    template_name = "envios/envio_articulo.html"
+
+    def get(self, request, *args, **kwargs):
+        articulo = Articulo.objects.all()
+        unidad = Unidad.objects.all()
+        context = {'articulo': articulo, 'unidad': unidad}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        formulario_envio = self.form_class(request.POST)
+        if formulario_envio.is_valid():
+            articulo = formulario_envio.cleaned_data['articulo']
+            unidad = formulario_envio.cleaned_data['unidad']
+            cantidad = formulario_envio.cleaned_data['cantidad']
+            if articulo.cantidad >= cantidad:
+                articulo.cantidad -= cantidad
+                articulo.save()
+                ArticuloUnidad.objects.create(
+                    movimiento='Envío',
+                    articulo=articulo,
+                    unidad=unidad,
+                    cantidad=cantidad,
+                    precio=articulo.precio,
+                    serial =articulo.serial
+                )
+                return redirect('articulos')
+            else:
+              return redirect('saldo insuficiente')
+              
+        context = {'formulario_envio': formulario_envio}
+        return render(request, self.template_name, context)
+        
+# fin de la vista de articulos 
+
 
 class VistaUnidad(View):
   
@@ -67,6 +126,33 @@ class CrearUnidad(CreateView):
 
 
 class UnidadArticulo(View):
-  
   def get(self, request, id):
-    return render(request, 'subunidad/unidad_articulo.html')
+    unidad= Unidad.objects.get(pk=id)
+    articulo = ArticuloUnidad.objects.filter(unidad=unidad)
+    context={'articulo':articulo}
+    return render(request, 'subunidad/unidad_articulo.html',context)
+  
+  
+class EditarVistaUnidad(UpdateView):
+    model = Unidad
+    form_class = FormUnidad
+    template_name = "unidad/editar_unidad.html"
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object() 
+        return super().get(request, self.template_name, *args, **kwargs)
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        return initial
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect('unidad')
+      
+      
+class EliminarVistaUnidad(DeleteView):
+  model = Unidad
+  template_name = "unidad/eliminar_unidad.html"
+  success_url = reverse_lazy('unidad')
+  

@@ -2,8 +2,8 @@
   {% csrf_token %}
 
   <div class="form-group">
-  <label for="">Articulo</label>
-  <select class="form-select" name="" id="">
+  <label for="articulo_id">Articulo</label>
+  <select class="form-select" name="articulo" id="articulo_id">
   {% for articulo in articulo %}
     <option value="{{articulo.id}}">{{articulo.id}} - {{articulo.articulo}} </option>
   {% endfor %}
@@ -12,9 +12,9 @@
   </div>
 
   <div class="form-group">
-  <label for="">Unidad</label>
+  <label for="unidad_id">Unidad</label>
   
-  <select class="form-select" name="" id="">
+  <select class="form-select" name="unidad" id="unidad_id">
   {% for unidad in unidad %}
     <option value="{{unidad.id}}"> {{unidad.id}} - {{unidad.nombreUnidad}}</option>
   {% endfor %}
@@ -22,8 +22,8 @@
   </div>
 
   <div class="form-group">
-  <label for=""> Cantidad</label>
-  <input type="number" class="form-control" name="" id="">
+  <label for="cantidad"> Cantidad</label>
+  <input type="number" class="form-control" name="cantidad" id="cantidad">
   </div>
 
 <div class="d-flex justify-content-center"> 
